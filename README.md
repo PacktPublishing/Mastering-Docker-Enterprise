@@ -5,7 +5,7 @@ Mastering Docker Enterprise Edition published by Packt
 ## PoC Files 
 
 - [Install Scripts Snippets](../master/PoC/install/Install-EE-Engine-notes.md)
-- [Elton Stoneman's New Letter app](../master/PoC/mta-netfx-dev-part-2/README.md)
+- [Elton Stoneman's News Letter app](../master/PoC/mta-netfx-dev-part-2/README.md)
 
 ## Pilot Files
 
