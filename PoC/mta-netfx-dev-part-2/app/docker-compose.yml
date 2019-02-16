@@ -1,0 +1,22 @@
+version: '3.3'
+
+services:
+  
+  signup-db:
+    image: ec2-18-236-79-203.us-west-2.compute.amazonaws.com/admin/db-image:v1
+    networks:
+      - app-net
+
+  signup-app:
+    image: ec2-18-236-79-203.us-west-2.compute.amazonaws.com/admin/app-image:v1
+    ports:
+      - "80:80"
+    depends_on:
+      - signup-db
+    networks:
+      - app-net
+
+networks:
+  app-net:
+    external:
+      name: nat

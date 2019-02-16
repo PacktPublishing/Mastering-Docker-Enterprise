@@ -1,0 +1,29 @@
+# /wiki-app/docker-compose-dev.yml
+version: '3.7'
+services:
+  wiki:
+    build: wiki
+    image: my-wiki:v1
+    volumes:
+      - ./wiki/wiki-files/current:/opt/j2ee/domains/mydomain.com/wiki/webapps/atlassian-confluence/data/current
+    ports:
+      - 8443:8443
+      - 8080:8080
+    networks:
+      - db_net
+
+  postgres:
+    build: postgres
+    image: my-postgres:v1
+    environment:
+      - POSTGRES_PASSWORD=xxxxxxxx
+    networks: 
+      - db_net
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./postgres/db-init:/docker-entrypoint-initdb.d
+
+networks: 
+  db_net:
+volumes: 
+  pgdata:

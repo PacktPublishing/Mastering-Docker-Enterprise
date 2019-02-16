@@ -1,0 +1,33 @@
+version: '3.3'
+
+services:
+  
+  signup-db:
+    image: ec2-52-10-6-19.us-west-2.compute.amazonaws.com/app-dev/db-image:v1     
+    networks:
+      - app-neto
+    deploy:
+      endpoint_mode: dnsrr  
+      placement:
+        constraints:
+          - node.platform.os==windows
+
+  signup-app:
+    image: ec2-52-10-6-19.us-west-2.compute.amazonaws.com/app-dev/app-image:v1
+    ports:
+      - mode: host
+        target: 80
+        published: 8000
+    depends_on:
+      - signup-db
+    networks:
+      - app-neto
+    deploy:
+      endpoint_mode: dnsrr
+      placement:
+        constraints:
+          - node.platform.os==windows
+
+networks:
+  app-neto:
+    driver: overlay
