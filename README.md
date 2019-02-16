@@ -7,7 +7,7 @@ Mastering Docker Enterprise Edition published by Packt
 - [Install Scripts Snippets](../PoC/install/Install-EE-Engine-notes.md)
 - [Elton Stoneman's New Letter app](../PoC/mta-netfx-dev-part-2)
 
-** Pilot Files
+## Pilot Files
 
 - Install
 - Custom Atsea App (manual deployment)
