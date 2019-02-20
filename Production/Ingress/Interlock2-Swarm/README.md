@@ -1,5 +1,7 @@
 # Getting Interlock2 set up for production
 
+### This is a sample exercise, not an endorsement of this configuation for production systems!
+
 Before you start, make sure you enable UCP's Layer 7 routing (Interlock2)
 
 * Log into the UCP Web UI (as a UCP Administrator user)
