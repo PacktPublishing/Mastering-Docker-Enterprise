@@ -3,7 +3,7 @@ FROM java:7-jdk
 
 RUN apt update && apt install -y netcat
 ADD wiki-jar/atlassian-confluence-5.4.3-deployment.tar.gz /opt/j2ee/domains/nvisia.com/wiki/webapps/atlassian-confluence/deployment/
-COPY wiki-conf/confluence-init.properties /opt/j2ee/domains/nvisia.com/wiki/webapps/atlassian-confluence/deployment/exploded_war/WEB-INF/classes/confluence-init.properties
+COPY wiki-conf/confluence-init.properties /opt/j2ee/domains/mydomain.com/wiki/webapps/atlassian-confluence/deployment/exploded_war/WEB-INF/classes/confluence-init.properties
 
 ENV CATALINA_HOME /usr/local/tomcat
 ENV PATH $CATALINA_HOME/bin:$PATH

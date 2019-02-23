@@ -1,6 +1,6 @@
-# Getting Interlock2 set up for production
+# Setting Up Interlock2
 
-### This is a sample exercise, not an endorsement of this configuation for production systems!
+### This is a sample exercise, not a recommondation of Interlock 2 for production systems.
 
 Before you start, make sure you enable UCP's Layer 7 routing (Interlock2)
 

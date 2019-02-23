@@ -1,8 +1,10 @@
-# Wiki files
+# Confluence Wiki Containerization Snippets
 
-While we could not include the license Confluece Wiki application itself, we did include *clean versions* of the supporting files.
+## Wiki files
 
-```
+While we could not include the license Confluence Wiki application itself, we did include *clean versions* of the supporting files.
+
+```text
 ├── README.md
 ├── docker-compose-dev.yml
 ├── postgres

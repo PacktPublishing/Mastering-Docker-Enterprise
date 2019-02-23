@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: atsea-database
+  namespace: atsea-test
+spec:
+  selector:
+    matchLabels:
+      run: atsea-database
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        run: atsea-database
+    spec:
+      containers:
+      - name: database
+        image: dtr.nvisia.io/test/atsea-db_build:kV1
+        ports:
+          - containerPort: 5432
+        env:
+          - name: POSTGRES_USER
+            valueFrom:
+              configMapKeyRef:
+                name: dbconfig
+                key: user
+          - name: POSTGRES_DB
+            valueFrom:
+              configMapKeyRef:
+                name: dbconfig
+                key: db
+          - name: POSTGRES_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: atsea-postgres-password
+                key: postgres_password
+        resources:
+          limits:
+            cpu: "1"
+            memory: 1Gi
+          requests:
+            cpu: "1"
+            memory: 1Gi
+      imagePullSecrets:
+        - name: regcred    

@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: atsea-web
+  namespace: atsea-test
+spec:
+  selector:
+    matchLabels:
+      run: atsea-web
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        run: atsea-web
+    spec:
+      containers:
+      - name: atsea-web
+        image: dtr.nvisia.io/test/atsea-web_build:kV1
+        ports:
+          - containerPort: 8080
+        volumeMounts:
+          - name: secret
+            mountPath: "/run/secrets"
+            subPath: postgres_password
+            readOnly: true
+        resources:
+          limits:
+            cpu: "1"
+            memory: 1.5Gi
+          requests:
+            cpu: "1"
+            memory: 1.5Gi
+        env:
+          name: JAVA_OPTS
+          value: -Xms512M -Xmx1G 
+      volumes:
+      - name: secret
+        secret:
+          defaultMode: 0666
+          secretName: atsea-postgres-password
+      imagePullSecrets:
+        - name: regcred       
