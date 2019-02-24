@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: database
-        image: dtr.nvisia.io/test/atsea-db_build:kV1
+        image: dtr.mydomain.com/test/atsea-db_build:RC-test
         ports:
           - containerPort: 5432
         env:

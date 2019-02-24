@@ -1,0 +1,39 @@
+kind: Service
+apiVersion: v1
+metadata:
+  namespace: default
+  name: docker-demo-svc
+spec:
+  selector:
+    app: dockerdemo
+  ports:
+  - protocol: TCP
+    port: 8080
+    targetPort: 8080
+---
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  namespace: default
+  name: dockerdemo-deploy
+  labels:
+    app: dockerdemo
+spec:
+  selector:
+    matchLabels:
+      app: dockerdemo
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: dockerdemo
+    spec:
+      containers:
+      - image: ehazlett/docker-demo
+        name: docker-demo-container
+        env:
+        - name: app
+          value: dockerdemo
+        ports:
+        - containerPort: 8080

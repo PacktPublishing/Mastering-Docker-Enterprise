@@ -64,6 +64,14 @@ $ echo 'Z29yZG9ucGFzcw==' | base64 --decode
 gordonpass
 ```
 
+## Create a secret for Kube to access DTR
+
+To pull private DTR images with Kubernetes, you may need to put your DTR credentials to a secret so Kube can authenticate with DTR. The DB and Webapp pod deplyments will access them with imagePullSecrets: name: regcred.
+
+```bash
+$ kubectl create secret -n atsea-test docker-registry regcred --docker-server=dtr.mydomain.com --docker-username=admin --docker-password=xxxxxxxxx --docker-email=someuser@mydomain.com
+```
+
 ## Create db deployment
 
 ```bash

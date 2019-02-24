@@ -2,7 +2,7 @@
 
 ## Attaching your UCP Kube Cluster to existing on-premeses NFS Server
 
-We use Helm to install NFS provisioner for Kubernetes. The provisioner create dynamically creates persistent volumes when persistent volume claim is made. 
+We use Helm to install NFS provisioner for Kubernetes. The provisioner dynamically creates persistent volumes when persistent volume claim is made. 
 
 ## NFS CLIENT
 Our set up is based on the following and REQUIRES AN EXISTING NFS SERVER TO WORK: 

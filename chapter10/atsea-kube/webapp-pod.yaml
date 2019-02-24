@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: atsea-web
-        image: dtr.nvisia.io/test/atsea-web_build:kV1
+        image: dtr.mydomain.com/test/atsea-web_build:RC-test
         ports:
           - containerPort: 8080
         volumeMounts:
@@ -31,8 +31,8 @@ spec:
             cpu: "1"
             memory: 1.5Gi
         env:
-          name: JAVA_OPTS
-          value: -Xms512M -Xmx1G 
+          - name: JAVA_OPTS
+            value: -Xms512M -Xmx1G
       volumes:
       - name: secret
         secret:

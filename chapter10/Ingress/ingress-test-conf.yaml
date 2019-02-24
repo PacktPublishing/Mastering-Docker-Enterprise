@@ -1,0 +1,16 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: dockerdemo-ingress
+  namespace: default
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  rules:
+  - host: ingress-app.mydomain.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: docker-demo-svc
+          servicePort: 8080
