@@ -15,7 +15,4 @@ Mastering Docker Enterprise published by Packt
 - Monitoring (Prometheus Docker Engine Endpoint - Experimental)
 - Monitoring (Promtheus Swarm Stack)
 - Sysdig Probe Install
-<<<<<<< HEAD
 
-=======
->>>>>>> a7f9fcb85630232550c0420a3a3f514011d0dba3
