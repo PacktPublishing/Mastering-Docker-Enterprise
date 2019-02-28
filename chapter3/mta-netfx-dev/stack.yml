@@ -3,7 +3,7 @@ version: '3.3'
 services:
   
   signup-db:
-    image: ec2-52-10-6-19.us-west-2.compute.amazonaws.com/app-dev/db-image:v1     
+    image: dtr.mydomain.com/dev/db-image:v1     
     networks:
       - app-neto
     deploy:
@@ -13,7 +13,7 @@ services:
           - node.platform.os==windows
 
   signup-app:
-    image: ec2-52-10-6-19.us-west-2.compute.amazonaws.com/app-dev/app-image:v1
+    image: dtr.mydomain.com/dev/app-image:v1
     ports:
       - mode: host
         target: 80

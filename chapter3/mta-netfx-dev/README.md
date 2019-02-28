@@ -80,5 +80,48 @@ mta-netfx-dev:PS> docker container rm -f signup-app signup-db
 ```Powershell
 mta-netfx-dev:PS> docker image tag db-image:v1 dtr.mydomain.com/dev/db-image:v1
 mta-netfx-dev:PS> docker image tag app-image:v1 dtr.mydomain.com/dev/app-image:v1
-
 ```
+
+# Deploy Test Stack
+
+### Move to the directory where you unzipped the UCP client bundle
+
+```Powershell
+cli-admin:PS> Import-Module .\env.ps1
+
+Security warning
+Run only scripts that you trust. While scripts from the internet can be useful, this script can potentially harm your
+computer. If you trust this script, use the Unblock-File cmdlet to allow the script to run without this warning
+message. Do you want to run C:\Users\ntc-dev\ntc-prod\cli-admin\env.ps1?
+
+[D] Do not run  [R] Run once  [S] Suspend  [?] Help (default is "D"): R
+Cluster "ucp_ucp.mydomain.com:6443_admin" set.
+User "ucp_ucp.mydomain.com:6443_admin" set.
+Context "ucp_ucp.mydomain.com:6443_admin" created.
+
+# Test the bundle by listing cluster nodes
+cli-admin:PS> docker node ls
+ID                            HOSTNAME              STATUS              AVAILABILITY        MANAGER STATUS      ENGINE VERSION
+1rqhb4rzj3gk4mdgk8kza53jp     ntc-dtr-1.mydomain.com   Ready               Active                                  18.09.0
+x27m3yjlh6b0wczmo0mcahkjv     ntc-dtr-2.mydomain.com   Ready               Active                                  18.09.0
+rw2tuw53wl34pv6sfj213845a     ntc-dtr-3.mydomain.com   Ready               Active                                  18.09.0
+q5q9u0yr7p8r0mcz4ob24s2kz     ntc-ucp-1.mydomain.com   Ready               Active              Reachable           18.09.0
+6ce10w7leu0a9my91w39j5eai     ntc-ucp-2.mydomain.com   Ready               Active              Reachable           18.09.0
+bd1bwcbqkpbulhwvm0fllgm55 *   ntc-upc-3.mydomain.com   Ready               Active              Leader              18.09.0
+3lw64q2o818xgnberjry410o7     ntc-wrk-1.mydomain.com   Ready               Active                                  18.09.0
+zxcosutrxr3rhzkz2h6ld0khj     ntc-wrk-2.mydomain.com   Ready               Active                                  18.09.0
+sfuxfiwhf2tpd6q3i7fbmaziv     ntc-wrk-3.mydomain.com   Ready               Active                                  18.09.0
+```
+
+### Run the docker stack deploy
+
+```Powershell
+# change directory back to mta-netfx-dev, then deploy the stack
+
+mta-netfx-dev:PS> docker stack deploy -c stack.yml test-win-stack
+Creating network test-win-stack_app-neto
+Creating service test-win-stack_signup-db
+Creating service test-win-stack_signup-app
+```
+
+# Point your brower at the Windows's nodes public IP on port 8000 to see the site
