@@ -125,3 +125,13 @@ Creating service test-win-stack_signup-app
 ```
 
 # Point your brower at the Windows's nodes public IP on port 8000 to see the site
+
+### If you get an error "Woah!"...
+
+> scale the app to zero and back to 1
+
+```Powershell
+docker service scale test_signup-app=0
+#...
+docker service scale test_signup-app=1
+```

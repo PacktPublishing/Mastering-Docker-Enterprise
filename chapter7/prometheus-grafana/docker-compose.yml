@@ -1,0 +1,90 @@
+version: '3.4'
+           
+services:
+
+  # Nginx Reverse Proxy to secure Prometheus
+  monitoring-nginx:
+    image: dtr.mydomain.com/admin/monitoring-nginx:v1
+    hostname: monitoring-nginx
+    environment:
+      PROMETHEUS_PASSWORD_FILE: '/run/secrets/prometheus-password'
+    secrets:
+      - prometheus-password      
+    deploy:
+      restart_policy:
+        condition: any
+        delay: 5s
+        max_attempts: 5  
+    networks:
+      - monitoring-frontend
+      - monitoring-backend  
+    ports:
+      - "33090:19090"  
+
+  monitoring-grafana:
+    image: grafana/grafana:latest
+    hostname: monitoring-grafana
+    networks:
+      - monitoring-frontend
+      - monitoring-backend  
+    ports:
+      - "33000:3000"      
+    volumes:
+      - grafana-data:/var/lib/grafana
+  
+  monitoring-prometheus:
+    image: prom/prometheus:latest
+    hostname: monitoring-prometheus
+    networks:
+      - monitoring-backend  
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'            
+    volumes:
+      - prometheus-metrics-data:/prometheus
+    configs:
+      - source: prometheus.yml
+        target: /etc/prometheus/prometheus.yml  
+
+  monitoring-cadvisor:
+    image: google/cadvisor:latest
+    hostname: monitoring-cadvisor
+    networks:
+      - monitoring-backend  
+    deploy:
+      mode: global      
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+
+  monitoring-node-exporter:
+    # https://github.com/prometheus/node_exporter/issues/830
+    image: prom/node-exporter:v0.15.0
+    hostname: monitoring-node-exporter
+    networks:
+      - monitoring-backend  
+    deploy:
+      mode: global       
+
+volumes:
+  prometheus-metrics-data:
+  grafana-data:
+
+networks:
+  monitoring-frontend:
+    driver: overlay
+    attachable: true
+  monitoring-backend:
+    driver: overlay
+    attachable: true    
+
+configs:
+  prometheus.yml:
+    file: ./prometheus.yml  
+
+secrets:
+  prometheus-password:
+    external: true      
+

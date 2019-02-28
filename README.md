@@ -2,17 +2,52 @@
 
 Mastering Docker Enterprise published by Packt
 
-## PoC Files 
+## Chapter 3
+
+### Getting Started - Docker Enterprise Proof of Concept
 
 - [Install Scripts Snippets](../master/chapter3/install/Install-EE-Engine-notes.md)
+- [Chapter 3 Docs](../master/chapter3/mta-netfx-dev/README.md)
 - [Elton Stoneman's News Letter app](../master/chapter3/mta-netfx-dev/Eltons-README.md)
 
-## Pilot Files
+## Chapter 4
 
-- Install
-- Custom Atsea App (manual deployment)
-- Custom Atsea App Pipeline
-- Monitoring (Prometheus Docker Engine Endpoint - Experimental)
-- Monitoring (Promtheus Swarm Stack)
-- Sysdig Probe Install
+### Prepare the Docker Enterprise Pilot Cluster
 
+- [Pilot Install Snippets](../master/chapter4/Pilot-bare-metal-install-notes.md)
+
+## Chapter 5
+
+### Prepare and Deploy a Docker Enterprise Pilot Application
+
+- [Wiki Snippets](../master/chapter5/wiki-code-snippets/README.md)
+
+## Chapter 6
+
+### Design and Pilot a Docker Enterprise CI Pipeline
+
+- [Pilot Application](../master/chapter6/README.md)
+
+## Chapter 7
+
+### Pilot Docker Enterprise Platform Monitoring and Logging
+
+- [Pilot Monitoring](../master/chapter7/README.md)
+
+## Chapter 8
+
+### First Application in Production with Docker Enterprise
+
+- [Firest App in Production](../master/chapter8/README.md)
+
+## Chapter 9
+
+### Important Docker Enterprise Production Topics
+
+- [Important Docker Enterprise Production Topics](../master/Production/Ingress/Interlock2-Swarm.)
+
+## Chapter 10
+
+### More on Kubernetes with Docker Enterprise
+
+- [Interlock 2 Setup](../master/Production/Ingress/Interlock2-Swarm.)

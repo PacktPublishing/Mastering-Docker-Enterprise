@@ -1,0 +1,87 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: prometheus
+data:
+  prometheus.yaml: |
+    global:
+      scrape_interval: 10s
+    scrape_configs:
+    - job_name: 'ucp'
+      tls_config:
+        ca_file: /bundle/ca.pem
+        cert_file: /bundle/cert.pem
+        key_file: /bundle/key.pem
+        server_name: proxy.local
+      scheme: https
+      file_sd_configs:
+      - files:
+        - /inventory/inventory.json
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prometheus
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: prometheus
+  template:
+    metadata:
+      labels:
+        app: prometheus
+    spec:
+      containers:
+      - name: inventory
+        image: alpine
+        command: ["sh", "-c"]
+        args:
+        - apk add --no-cache curl &&
+          while :; do
+            curl -Ss --cacert /bundle/ca.pem --cert /bundle/cert.pem --key /bundle/key.pem --output /inventory/inventory.json https://ucp.mydomain.com/metricsdiscovery;
+            sleep 15;
+          done
+        volumeMounts:
+        - name: bundle
+          mountPath: /bundle
+        - name: inventory
+          mountPath: /inventory
+      - name: prometheus
+        image: prom/prometheus
+        command: ["/bin/prometheus"]
+        args:
+        - --config.file=/config/prometheus.yaml
+        - --storage.tsdb.path=/prometheus
+        - --web.console.libraries=/etc/prometheus/console_libraries
+        - --web.console.templates=/etc/prometheus/consoles
+        volumeMounts:
+        - name: bundle
+          mountPath: /bundle
+        - name: config
+          mountPath: /config
+        - name: inventory
+          mountPath: /inventory
+      volumes:
+      - name: bundle
+        secret:
+          secretName: prometheus
+      - name: config
+        configMap:
+          name: prometheus
+      - name: inventory
+        emptyDir:
+          medium: Memory
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: prometheus
+spec:
+  type: NodePort
+  ports:
+  - port: 9090
+    targetPort: 9090
+  selector:
+    app: prometheus
+  sessionAffinity: ClientIP

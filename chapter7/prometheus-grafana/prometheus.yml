@@ -1,0 +1,55 @@
+# Global configuration settings
+global:
+  scrape_interval:     120s # By default, scrape targets every 15 seconds.
+  evaluation_interval: 120s # By default, scrape targets every 15 seconds.
+
+  external_labels:
+      monitor: 'docker_monitoring_project'
+
+# Define the targets to scrape for metrics
+scrape_configs:
+ 
+  # Define a Job to scrape Prometheus Metrics
+  - job_name: prometheus
+
+    scrape_interval: 15s
+    scrape_timeout: 10s
+
+    metrics_path: /metrics
+    scheme: http
+
+    static_configs:
+      - targets: ['monitoring-prometheus:9090']
+    
+  # Define a Job to scrape all cAdvisors for Docker container metrics          
+  - job_name: cadvisor
+
+    scrape_interval: 15s
+    scrape_timeout: 10s
+
+    metrics_path: /metrics
+    scheme: http
+
+    dns_sd_configs:
+    - refresh_interval: 15s  
+      names:
+        - tasks.monitoring-cadvisor
+      type: A
+      port: 8080
+
+  # Define a Job to scrape all Node Exporters for system metrics      
+  - job_name: node_exporter
+
+    scrape_interval: 15s
+    scrape_timeout: 10s
+
+    metrics_path: /metrics
+    scheme: http
+
+    dns_sd_configs:
+    - refresh_interval: 15s  
+      names:
+        - tasks.monitoring-node-exporter
+      type: A
+      port: 9100
+

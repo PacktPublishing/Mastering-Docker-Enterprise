@@ -159,4 +159,4 @@ kubectl config set-context $(kubectl config current-context) --namespace=default
 
 $ kubectl exec -it atsea-database-74f677ff46-qjmg5 -- psql -U gordonuser -d atsea
 
-$ kubectl create secret -n atsea-test docker-registry regcred --docker-server=dtr.mydomain.com --docker-username=admin --docker-password=xxxxxxxxx --docker-email=sysadmin@nvisia.com
+$ kubectl create secret -n atsea-test docker-registry regcred --docker-server=dtr.mydomain.com --docker-username=admin --docker-password=xxxxxxxxx --docker-email=sysadmin@mydomain.com

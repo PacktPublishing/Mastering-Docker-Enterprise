@@ -130,6 +130,14 @@ Restart-Service docker
 docker run -it --rm docker/dtr:2.6.2 install --ucp-url <ucp host>:443 --ucp-username admin --ucp-password <ucp password> --ucp-insecure-tls --ucp-node <name node where DTR is to be installed> 
 ```
 
+## Trust DTR Nodes 
+
+```bash
+sudo curl -k https://dtr.mydomain.com/ca -o /etc/pki/ca-trust/source/anchors/dtr.mydomain.com.crt
+sudo update-ca-trust
+sudo /bin/systemctl restart docker.service
+```
+
 ## Test Deploy Application as Services to the Swarm
 
 Windows application from UCP manager:
@@ -143,6 +151,7 @@ Linux Application:
 ```bash
 docker service create --publish 80:80 nginx
 ```
+
 # Docker Install Links
 
 *Docker EE Certified Platforms*
