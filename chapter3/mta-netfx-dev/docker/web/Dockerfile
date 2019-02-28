@@ -1,5 +1,5 @@
 # escape=`
-FROM ec2-18-236-79-203.us-west-2.compute.amazonaws.com/admin/mta-sdk-web-builder:3.5 AS builder
+FROM mta-sdk-web-builder:3.5 AS builder
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop';"]
 
 WORKDIR C:\src\SignUp.Web
