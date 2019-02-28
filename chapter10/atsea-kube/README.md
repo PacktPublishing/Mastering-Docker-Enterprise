@@ -26,7 +26,9 @@
 $ kubectl apply -f create-app-namespace.yaml
 namespace/atsea-test created
 ```
+
 ### Create configmap.yaml and apply it.
+
 ```bash
 $ kubectl apply -f configmap.yaml
 configmap/dbconfig created
