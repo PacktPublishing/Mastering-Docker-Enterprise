@@ -1,6 +1,6 @@
-# Mastering-Docker-Enterprise-Edition
+# Mastering-Docker-Enterprise
 
-Mastering Docker Enterprise Edition published by Packt
+Mastering Docker Enterprise published by Packt
 
 ## PoC Files 
 
