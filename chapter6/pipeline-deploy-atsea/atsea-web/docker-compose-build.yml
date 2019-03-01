@@ -1,0 +1,7 @@
+version: "3.7"
+
+services:
+   appserver:
+      build:
+         context: .
+      image: dtr.mydomain.com/dev/atsea-web_build:${CI_COMMIT_REF_NAME}

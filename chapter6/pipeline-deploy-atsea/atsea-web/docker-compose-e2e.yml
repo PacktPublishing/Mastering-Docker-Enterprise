@@ -1,0 +1,47 @@
+version: "3.7"
+
+services:
+  database:
+    image: dtr.mydomain.com/dev/atsea-db_build:RC-DEV 
+    user: postgres
+    environment:
+      POSTGRES_USER: gordonuser
+      POSTGRES_PASSWORD_FILE: /run/secrets/postgres_password
+      POSTGRES_DB: atsea
+    ports:
+      - "5432:5432" 
+    networks:
+      - back-tier
+    secrets:
+      - postgres_password
+
+  appserver:
+    image: dtr.mydomain.com/dev/atsea-web_build:$CI_COMMIT_REF_NAME
+    user: gordon
+    ports:
+      - "8080:8080" 
+    networks:
+      - front-tier
+      - back-tier
+    secrets:
+      - postgres_password
+
+  payment_gateway:
+    image: dtr.mydomain.com/dev/atsea-payment_build:RC-DEV
+    networks:
+      - payment
+    secrets:
+      - payment_token
+
+networks:
+  front-tier:
+    driver: overlay
+    attachable: true
+  back-tier:
+  payment:
+
+secrets:
+  postgres_password:
+    file: ./devsecrets/postgres_password
+  payment_token:
+    file: ./devsecrets/payment_token

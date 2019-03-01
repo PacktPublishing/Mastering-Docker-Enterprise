@@ -1,0 +1,68 @@
+# atsea-deploy  docker-stack-cluster.yml
+version: "3.7"
+
+services:
+  database:
+    image: dtr.mydomain.com/test/atsea-db_build:RC-test
+    environment:
+      POSTGRES_USER: gordonuser
+      POSTGRES_DB_PASSWORD_FILE: /run/secrets/postgres_password
+      POSTGRES_DB: atsea
+    networks:
+      - back-tier-app
+    secrets:
+      - postgres_password
+
+  appserver:
+    image: dtr.mydomain.com/test/atsea-web_build:RC-test
+    environment:
+      JAVA_OPTS: -Xms512M -Xmx1G 
+    ports:
+      - 8043:8080
+    networks:
+      - back-tier-app
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/index.html"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 40s
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 1.5G
+        reservations:
+          cpus: '1'
+          memory: 1.5G
+      replicas: 2
+      update_config:
+        parallelism: 1
+        failure_action: rollback
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+    secrets:
+      - postgres_password
+
+  payment_gateway:
+    image: dtr.mydomain.com/test/atsea-payment_build:RC-test
+    secrets:
+      - source: staging_token
+        target: payment_token
+    networks:
+      - back-tier-app
+    deploy:
+      update_config:
+        failure_action: rollback
+
+networks:
+  back-tier-app:
+
+secrets:
+  postgres_password:
+    file: ./secrets/test/postgres_password
+  staging_token:
+    file: ./secrets/test/payment_token

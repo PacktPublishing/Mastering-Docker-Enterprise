@@ -1,0 +1,25 @@
+# atsea-deploy .gitlab-ci.yml
+
+image: docker:stable
+
+stages:
+  - deploy
+
+before_script:
+  - apk add unzip
+  - apk add curl
+  - apk add jq
+  - apk add bash
+
+deploy-stack:
+  stage: deploy
+  script:
+    - bash
+    - chmod +x ./get_bundle.sh
+    - chmod +x ./deploy_cluster.sh
+    - ./get_bundle.sh
+    - chmod +x ./env.sh
+    - echo $DEPLOY_TARGET
+    - ./deploy_cluster.sh $DEPLOY_TARGET
+  only:
+  - trigger

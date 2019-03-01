@@ -1,0 +1,87 @@
+# atsea-deploy  docker-stack-cluster.yml
+version: "3.7"
+
+services:
+  database:
+    image: ${DTR_SERVER}/${STACK_ENV}/atsea-db_build:RC-${STACK_ENV}
+    environment:
+      POSTGRES_USER: gordonuser
+      POSTGRES_DB_PASSWORD_FILE: /run/secrets/postgres_password
+      POSTGRES_DB: atsea
+    networks:
+      - back-tier
+    secrets:
+      - postgres_password
+
+  appserver:
+    image: ${DTR_SERVER}/${STACK_ENV}/atsea-web_build:RC-${STACK_ENV}
+    environment:
+      JAVA_OPTS: -Xms512M -Xmx1G 
+    networks:
+      - front-tier
+      - back-tier
+      - payment
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/index.html"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 40s
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 1.5G
+        reservations:
+          cpus: '1'
+          memory: 1.5G
+      replicas: 2
+      update_config:
+        parallelism: 1
+        failure_action: rollback
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+      labels:
+        com.docker.lb.hosts: at-sea-${STACK_ENV}.mydomain.com
+        com.docker.lb.network: ${STACK}_front-tier
+        com.docker.lb.port: 8080
+        com.docker.lb.ssl_cert: wildcard.mydomain.com.server.crt
+        com.docker.lb.ssl_key: wildcard.mydomain.com.key        
+    secrets:
+      - postgres_password
+
+  payment_gateway:
+    image: ${DTR_SERVER}/${STACK_ENV}/atsea-payment_build:RC-${STACK_ENV}
+    secrets:
+      - source: staging_token
+        target: payment_token
+    networks:
+      - payment
+    deploy:
+      update_config:
+        failure_action: rollback
+
+networks:
+  front-tier:
+  back-tier:
+  payment:
+    driver: overlay
+
+secrets:
+  postgres_password:
+    file: ./secrets/${STACK_ENV}/postgres_password
+    labels:
+        com.docker.ucp.access.label: /${STACK_ENV}
+  staging_token:
+    file: ./secrets/${STACK_ENV}/payment_token
+    labels:
+        com.docker.ucp.access.label: /${STACK_ENV}
+  wildcard.mydomain.com.key:
+    file: ./secrets/${STACK_ENV}/wildcard.mydomain.com.key
+    labels:
+        com.docker.ucp.access.label: /${STACK_ENV}
+  wildcard.mydomain.com.server.crt:
+    file: ./secrets/${STACK_ENV}/wildcard.mydomain.com.server.crt

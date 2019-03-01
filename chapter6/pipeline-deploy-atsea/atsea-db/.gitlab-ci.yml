@@ -1,0 +1,41 @@
+# atsea-db .gitlab-ci.yml
+variables:
+  DTR_SERVER: dtr.mydomain.com
+
+image: docker:stable
+
+before_script:
+  - docker login -u builder -p $BUILDER_PW $DTR_SERVER
+
+stages:
+  - build
+  - push
+  - deploy
+
+build-image:
+  stage: build
+  script:
+    - docker image build -t $DTR_SERVER/dev/"$CI_PROJECT_NAME"_build:$CI_COMMIT_REF_NAME .
+
+push-branch:
+  stage: push
+  script:
+    - docker push $DTR_SERVER/dev/"$CI_PROJECT_NAME"_build:$CI_COMMIT_REF_NAME
+
+push-master:
+  stage: push
+  script:
+    - docker image tag  $DTR_SERVER/dev/"$CI_PROJECT_NAME"_build:$CI_COMMIT_REF_NAME $DTR_SERVER/dev/"$CI_PROJECT_NAME"_build:RC-DEV
+    - docker image push $DTR_SERVER/dev/"$CI_PROJECT_NAME"_build:RC-DEV 
+    - docker image rm   $DTR_SERVER/dev/"$CI_PROJECT_NAME"_build:RC-DEV 
+  only:
+  - master
+
+deploy-to-test:
+  stage: deploy
+  before_script:
+    - apk add curl
+  script:
+    - echo "wait for image promotion..."
+    - sleep 10
+    - curl -X POST -F token=${DEPLOY_TRIGGER_TOKEN} -F "ref=master" -F "variables[DEPLOY_TARGET]=test" https://gitlab.com/api/v4/projects/10552558/trigger/pipeline
