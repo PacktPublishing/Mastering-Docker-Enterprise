@@ -6,7 +6,7 @@ Mastering Docker Enterprise published by Packt
 
 ### Getting Started - Docker Enterprise Proof of Concept
 
-- [Install Scripts Snippets](../master/chapter3/install/Install-EE-Engine-notes.md)
+- [Install Scripts Snippets](../master/chapter3/install/PoC-cluster-install-snippets.md)
 - [Chapter 3 Docs](../master/chapter3/mta-netfx-dev/README.md)
 - [Elton Stoneman's News Letter app](../master/chapter3/mta-netfx-dev/Eltons-README.md)
 
