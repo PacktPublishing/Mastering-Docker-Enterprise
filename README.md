@@ -1,6 +1,6 @@
 # Mastering-Docker-Enterprise
 
-Mastering Docker Enterprise published by Packt
+[Mastering Docker Enterprise published by Packt](https://www.packtpub.com/virtualization-and-cloud/mastering-docker-enterprise)
 
 Please post questions or problems as issues. 
 
