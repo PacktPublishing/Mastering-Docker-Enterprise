@@ -2,6 +2,10 @@
 
 Mastering Docker Enterprise published by Packt
 
+Please post questions or problems as issues. 
+
+[Ongoing tasks are in a project here](https://github.com/PacktPublishing/Mastering-Docker-Enterprise/projects/1)
+
 ## Chapter 3
 
 ### Getting Started - Docker Enterprise Proof of Concept
