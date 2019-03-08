@@ -1,10 +1,14 @@
 # Mastering-Docker-Enterprise
 
+## Book, Issues and Project Backlog
+
 [Mastering Docker Enterprise published by Packt](https://www.packtpub.com/virtualization-and-cloud/mastering-docker-enterprise)
 
 Please post questions or problems as issues. 
 
-[Ongoing tasks are in a project here](https://github.com/PacktPublishing/Mastering-Docker-Enterprise/projects/1)
+[Ongoing backlog is in Github project here](https://github.com/PacktPublishing/Mastering-Docker-Enterprise/projects/1)
+
+# Book Files
 
 ## Chapter 3
 
