@@ -1,4 +1,4 @@
-# Converting the Atsea appliation to Kubernetes
+# Converting the Atsea application to Kubernetes
 
 ## Checklist
 
