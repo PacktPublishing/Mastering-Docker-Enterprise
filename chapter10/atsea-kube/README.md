@@ -33,7 +33,7 @@ namespace/atsea-test created
 $ kubectl apply -f configmap.yaml
 configmap/dbconfig created
 
-$ kubectl get configmap dbconfig -o yaml
+$ kubectl -n atsea-test get configmap dbconfig -o yaml
 apiVersion: v1
 data:
   db: atsea
@@ -52,7 +52,7 @@ $ kubectl apply -f secret.yaml
 secret/atsea-postgres-password created
 
 # Verify password 
-$ kubectl get secret atsea-postgres-password -o yaml
+$ kubectl -n atsea-test get secret atsea-postgres-password -o yaml
 apiVersion: v1
 data:
   password: Z29yZG9ucGFzcw==
@@ -80,7 +80,7 @@ $ kubectl create secret -n atsea-test docker-registry regcred --docker-server=dt
 $ kubectl apply -f db-pod.yaml
 deployment.apps/atsea-database created
 
-$ kubectl get pods
+$ kubectl -n atsea-test get pods
 NAME                              READY   STATUS    RESTARTS   AGE
 atsea-database-6bf74cbc4b-7n5d7   1/1     Running   0          25s
 
@@ -124,7 +124,7 @@ performing post-bootstrap initialization ... ok
 $ kubectl apply -f db-service.yaml
 service/database created
 
-$ kubectl describe svc/database
+$ kubectl -n atsea-test describe svc/database
 Name:              database
 Namespace:         default
 Labels:            run=atsea-database
@@ -145,7 +145,7 @@ deployment.apps/atsea-web created
 $ kubectl apply -f webapp-service.yaml
 service/atsea-webapp created
 
-$ kubectl get svc
+$ kubectl -n atsea-test get svc
 NAME           TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
 atsea-webapp   NodePort    10.104.35.106   <none>        8080:32666/TCP   29s
 database       ClusterIP   10.109.43.119   <none>        5432/TCP         1m
