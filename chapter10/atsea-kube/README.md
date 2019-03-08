@@ -2,7 +2,7 @@
 
 ## Checklist
 
-### Local buld and test Docker Desktop
+### Local build and test Docker Desktop
 
 - Create namespace
 - ConfigMap for DB nme and DB user
@@ -20,7 +20,7 @@
 - Smoke test
 - Update LB
 
-### Create a namespace for our deployment.
+### Create a namespace for our deployment
 
 ```bash
 $ kubectl apply -f create-app-namespace.yaml
@@ -151,13 +151,12 @@ atsea-webapp   NodePort    10.104.35.106   <none>        8080:32666/TCP   29s
 database       ClusterIP   10.109.43.119   <none>        5432/TCP         1m
 ```
 
+### Misc degugging commands used
 
-### Misc degugging commands used 
 $ kubectl apply -f create-app-namespace.yaml
 namespace/atsea-test created
 
 kubectl config set-context $(kubectl config current-context) --namespace=default
-
 
 $ kubectl exec -it atsea-database-74f677ff46-qjmg5 -- psql -U gordonuser -d atsea
 
