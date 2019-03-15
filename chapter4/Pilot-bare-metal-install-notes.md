@@ -31,7 +31,7 @@ NAT for Kubectl 6443
 ```bash
 $ sudo yum install ntp
 $ sudo systemctl restart network
-$ sudo systemctl restart docker
+# If after Docker Install... $ sudo systemctl restart docker
 ```
 
 ### Install firewall rules on all nodes - just a starting point... 
@@ -86,16 +86,16 @@ https://storebits.docker.com/ee/m/sub-xxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx
 
 ```bash
 $ sudo yum remove docker \
-$ docker-client \
-$ docker-client-latest \
-$ docker-common \
-$ docker-latest \
-$ docker-latest-logrotate \
-$ docker-logrotate \
-$ docker-selinux \
-$ docker-engine-selinux \
-$ docker-engine \
-$ docker-ce
+ docker-client \
+ docker-client-latest \
+ docker-common \
+ docker-latest \
+ docker-latest-logrotate \
+ docker-logrotate \
+ docker-selinux \
+ docker-engine-selinux \
+ docker-engine \
+ docker-ce
 
 sudo rm /etc/yum.repos.d/docker*.repo
 ```
