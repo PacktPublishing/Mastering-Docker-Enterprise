@@ -57,13 +57,9 @@ We also provide a PDF file that has color images of the screenshots/diagrams use
 
 ## Get to Know the Author
 **Mark Panthofer**
-earned a degree in computer engineering in 1991 and has since accumulated 20+ years of technology adoption experience in a wide variety of positions, ranging from software engineer to software executive. He is currently the vice president of NVISIA's technology centers, where he focuses on Docker-related technology adoption. 
-As a Docker-accredited consultant and instructor, Mark's responsibilities include the following:
+holds a B.S. in Computer Engineering from the Milwaukee School of Engineering. He has dedicated 30 years as a software engineer, architect and executive, to the practical adoption of emerging software technologies. As the Vice President of NVISIA's Technology Center, Mark provides advisory services to regional IT organizations on enterprise container and Cloud adoption.
 
-Providing training to leading commercial and government agencies on the best practices with Docker Enterprise for developers, DevOps, and operations
-Providing advisory services to regional IT organizations on enterprise container adoption
-Co-organizing Docker Chicago and Docker Milwaukee meetups
-Collaborating with Docker's solution architects
+Mark manages NVISIA’s Docker partnership by working closely with Docker’s Training organization as an active member of the Docker Curriculum Committee, as well as with the Docker Partner and Professional Service teams. As a Docker Certified Associate, Docker-accredited consultant and instructor, Mark provides training to leading commercial and government agencies on the best practices with Docker Enterprise for developers, DevOps, and operations teams. He is also a co-organizer of the Docker Chicago and the Docker Milwaukee meetups.
 
 
 ## Other books by the authors
