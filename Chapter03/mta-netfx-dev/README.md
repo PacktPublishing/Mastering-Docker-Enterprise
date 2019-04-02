@@ -4,7 +4,7 @@ This exercise runs with Windows contaners.  Also, these images large and take a 
 
 ## Build database Image
 
-- [Dockerfile for the DB - Click here](../master/chapter3/mta-netfx-dev/docker/db/Dockerfile)
+- [Dockerfile for the DB - Click here](../master/Chapter03/mta-netfx-dev/docker/db/Dockerfile)
 
 Build the database image
 ```Powershell
@@ -28,7 +28,7 @@ mta-netfx-dev:PS> docker container rm -f db-test
 ```
 
 ## Build .Net 3.5 Builder  Image
-- [Dockerfile for the .NET 3.5 Builder - Click here](../master/chapter3/mta-netfx-dev/docker/web-builder/3.5/Dockerfile)
+- [Dockerfile for the .NET 3.5 Builder - Click here](../master/chapter03/mta-netfx-dev/docker/web-builder/3.5/Dockerfile)
 
 Create a "builder" we can use to build our .NET 3.5 applications. We will use this in to build our application in the next step.
 
